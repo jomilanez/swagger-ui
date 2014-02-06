@@ -1810,7 +1810,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     ParameterView.prototype.render = function() {
       var contentTypeModel, isParam, parameterContentTypeView, responseContentTypeView, signatureModel, signatureView, template, type;
-      type = this.model.type || this.model.dataType || this.model.items.type || this.modelitems["$ref"];
+      type = this.model.type || this.model.dataType || this.model.items.type || this.model.items["$ref"];
       if (this.model.paramType === 'body') {
         this.model.isBody = true;
       }
