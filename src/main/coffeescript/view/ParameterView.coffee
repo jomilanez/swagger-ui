@@ -2,7 +2,7 @@ class ParameterView extends Backbone.View
   initialize: ->
 
   render: ->
-    type = @model.type || @model.dataType
+    type = @model.type || @model.dataType || @model.items.type || @model.items["$ref"]
     @model.isBody = true if @model.paramType == 'body'
     @model.isFile = true if type.toLowerCase() == 'file'
 
