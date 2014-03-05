@@ -16,6 +16,9 @@
   <script src='lib/swagger.js' type='text/javascript'></script>
   <script src='swagger-ui.js' type='text/javascript'></script>
   <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+  <script src='lib/oauth-1.0a.js' type='text/javascript'></script>
   <script type="text/javascript">
     $(function () {
       window.swaggerUi = new SwaggerUi({
@@ -25,6 +28,13 @@
       onComplete: function(swaggerApi, swaggerUi){
         if(console) {
           console.log("Loaded SwaggerUI")
+        }
+        var key = $('#input_apiKey')[0].value;
+        var secret = $('#input_apiSecret')[0].value;
+        console.log("key: " + key);
+        console.log("secret: " + secret);
+        if(key && key.trim() != "" && secret && secret.trim() != "") {
+           window.authorizations.add("oauth", new OAuthorization(key, secret, "HMAC-SHA1"));
         }
         $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
       },
@@ -37,15 +47,8 @@
       docExpansion: "none"
     });
 
-    $('#input_apiKey').change(function() {
-      var key = $('#input_apiKey')[0].value;
-      console.log("key: " + key);
-      if(key && key.trim() != "") {
-        console.log("added key " + key);
-        window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
-      }
-    })
     window.swaggerUi.load();
+
   });
 
   </script>
@@ -57,14 +60,9 @@
     <a id="logo" href="http://swagger.wordnik.com">swagger</a>
 
     <form id='api_selector'>
-      <div class='input icon-btn'>
-        <img id="show-pet-store-icon" src="images/pet_store_api.png" title="Show Swagger Petstore Example Apis">
-      </div>
-      <div class='input icon-btn'>
-        <img id="show-wordnik-dev-icon" src="images/wordnik_api.png" title="Show Wordnik Developer Apis">
-      </div>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
       <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
+      <div class='input'><input placeholder="api_secret" id="input_apiSecret" name="apiSecret" type="text"/></div>
       <div class='input'><a id="explore" href="#">Explore</a></div>
     </form>
   </div>
