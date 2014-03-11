@@ -264,6 +264,8 @@ OAuth.prototype.getTimeStamp = function() {
   @return {Object}
 */
 OAuth.prototype.mergeObject = function(obj1, obj2) {
+  if (typeof obj1 === "undefined")
+    return obj2;
   var merged_obj = obj1;
   for(var key in obj2) {
     merged_obj[key] = obj2[key];
