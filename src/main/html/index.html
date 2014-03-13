@@ -21,8 +21,9 @@
   <script src='lib/oauth-1.0a.js' type='text/javascript'></script>
   <script type="text/javascript">
     $(function () {
+      var hostName = (location.host === "")? "localhost" : location.host;
       window.swaggerUi = new SwaggerUi({
-      url: "http://petstore.swagger.wordnik.com/api/api-docs",
+      url: "http://" + hostName + ":9090/api-docs",
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
       onComplete: function(swaggerApi, swaggerUi){
