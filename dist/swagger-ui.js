@@ -1744,6 +1744,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
       } else if (contentType.indexOf("text/html") === 0) {
         code = $('<code />').html(content);
         pre = $('<pre class="xml" />').append(code);
+      } else if (contentType.indexOf("image/*") === 0) {
+        code = $('<code />').html("<img src=\"data:image/png;charset=UTF8;  base64, " + content + "\" />");
+        pre = $('<pre class="image" />').append(code);
       } else {
         code = $('<code />').text(content);
         pre = $('<pre class="json" />').append(code);
